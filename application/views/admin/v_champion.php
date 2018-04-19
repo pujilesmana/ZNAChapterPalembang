@@ -8,7 +8,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>M-Sekolah | Gallery</title>
+  <title>ZNA Chapter Palembang | Champion</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="shorcut icon" type="text/css" href="<?php echo base_url().'assets/images/favicon.png'?>">
@@ -62,7 +62,7 @@
             <li><a href="<?php echo base_url().'admin/tulisan/add_tulisan'?>"><i class="fa fa-thumb-tack"></i> Post Berita</a></li>
           </ul>
         </li>
-        <li class="treeview active">
+        <li class="treeview">
           <a href="#">
             <i class="fa fa-camera"></i>
             <span>Gallery</span>
@@ -75,7 +75,7 @@
             <li><a href="<?php echo base_url().'admin/galeri'?>"><i class="fa fa-picture-o"></i> Photos</a></li>
           </ul>
         </li>
-        <li>
+        <li class="active">
           <a href="<?php echo base_url().'admin/champion'?>">
             <i class="fa fa-sign-out"></i> <span>Champion</span>
             <span class="pull-right-container">
@@ -111,12 +111,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Gallery Photos 
+        Champions 
         <small></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Photos</li>
+        <li class="active">Champion</li>
       </ol>
     </section>
 
@@ -128,7 +128,7 @@
            
           <div class="box">
             <div class="box-header">
-              <a class="btn btn-success btn-flat" data-toggle="modal" data-target="#myModal"><span class="fa fa-plus"></span> Add Photo</a>
+              <a class="btn btn-success btn-flat" data-toggle="modal" data-target="#myModal"><span class="fa fa-plus"></span> Add Champion</a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -136,10 +136,12 @@
                 <thead>
                 <tr>
           					<th>Gambar</th>
-          					<th>Judul</th>
-          					<th>Tanggal</th>
-          					<th>Album</th>
-          					<th>Author</th>
+                    <th>Id</th>
+          					<th>Nama</th>
+          					<th>Ukuran</th>
+          					<th>Owner</th>
+          					<th>Handling</th>
+                    <th>Kategori</th>
                     <th style="text-align:right;">Aksi</th>
                 </tr>
                 </thead>
@@ -148,24 +150,27 @@
           					$no=0;
           					foreach ($data->result_array() as $i) :
           					   $no++;
-          					   $galeri_id=$i['galeri_id'];
-          					   $galeri_judul=$i['galeri_judul'];
-          					   $galeri_tanggal=$i['tanggal'];
-          					   $galeri_author=$i['galeri_author'];
-          					   $galeri_gambar=$i['galeri_gambar'];
-          					   $galeri_album_id=$i['galeri_album_id'];
-                       $galeri_album_nama=$i['album_nama'];
+          					   $champion_id=$i['champion_id'];
+          					   $champion_nama=$i['champion_nama'];
+          					   $champion_ukuran=$i['champion_ukuran'];
+          					   $champion_owner=$i['champion_owner'];
+                       $champion_handling=$i['champion_handling'];
+          					   $champion_gambar=$i['champion_gambar'];
+          					   $kategori_id=$i['champion_kategori'];
+                       $kategori_nama=$i['album_nama'];
                        
                     ?>
                 <tr>
-                  <td><img src="<?php echo base_url().'assets/images/'.$galeri_gambar;?>" style="width:80px;"></td>
-                  <td><?php echo $galeri_judul;?></td>
-        				  <td><?php echo $galeri_tanggal;?></td>
-        				  <td><?php echo $galeri_album_nama;?></td>
-                  <td><?php echo $galeri_author;?></td>
+                  <td><img src="<?php echo base_url().'assets/images/'.$champion_gambar;?>" style="width:80px;"></td>
+                  <td><?php echo $champion_id;?></td>
+        				  <td><?php echo $champion_nama;?></td>
+                  <td><?php echo $champion_ukuran;?></td>
+                  <td><?php echo $champion_owner;?></td>
+                  <td><?php echo $champion_handling;?></td>
+        				  <td><?php echo $kategori_nama;?></td>
                   <td style="text-align:right;">
-                        <a class="btn" data-toggle="modal" data-target="#ModalEdit<?php echo $galeri_id;?>"><span class="fa fa-pencil"></span></a>
-                        <a class="btn" data-toggle="modal" data-target="#ModalHapus<?php echo $galeri_id;?>"><span class="fa fa-trash"></span></a>
+                        <a class="btn" data-toggle="modal" data-target="#ModalEdit<?php echo $kategori_id;?>"><span class="fa fa-pencil"></span></a>
+                        <a class="btn" data-toggle="modal" data-target="#ModalHapus<?php echo $kategori_id;?>"><span class="fa fa-trash"></span></a>
                   </td>
                 </tr>
 				<?php endforeach;?>
@@ -392,23 +397,46 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button>
-                        <h4 class="modal-title" id="myModalLabel">Add Photo</h4>
+                        <h4 class="modal-title" id="myModalLabel">Add Champion</h4>
                     </div>
-                    <form class="form-horizontal" action="<?php echo base_url().'admin/galeri/simpan_galeri'?>" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal" action="<?php echo base_url().'admin/champion/simpan_champion'?>" method="post" enctype="multipart/form-data">
                     <div class="modal-body">
-                                
-                                    <div class="form-group">
-                                        <label for="inputUserName" class="col-sm-4 control-label">Judul</label>
-                                        <div class="col-sm-7">
-                                            <input type="text" name="xjudul" class="form-control" id="inputUserName" placeholder="Judul" required>
-                                        </div>
-                                    </div>
 
                                     <div class="form-group">
-                                        <label for="inputUserName" class="col-sm-4 control-label">Album</label>
+                                        <label for="inputUserName" class="col-sm-4 control-label">Id</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" name="xid" class="form-control" id="inputUserName" placeholder="ID" required>
+                                        </div>
+                                    </div>                                
+                                    <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Nama</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" name="xnama" class="form-control" id="inputUserName" placeholder="Nama" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Ukuran</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" name="xukuran" class="form-control" id="inputUserName" placeholder="ukuran" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Owner</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" name="xowner" class="form-control" id="inputUserName" placeholder="Owner" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Handling</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" name="xhandling" class="form-control" id="inputUserName" placeholder="Handling" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Kategori</label>
                                         <div class="col-sm-7">
                                             
-                                          <select class="form-control" name="xalbum" style="width: 100%;" required>
+                                          <select class="form-control" name="xkategori" style="width: 100%;" required>
                                                     <option value="">-Pilih-</option>
                                               <?php
                                               $no=0;
@@ -444,44 +472,69 @@
 
   <!--Modal Edit Album-->
   <?php foreach ($data->result_array() as $i) :
-              $galeri_id=$i['galeri_id'];
-              $galeri_judul=$i['galeri_judul'];
-              $galeri_tanggal=$i['tanggal'];
-              $galeri_author=$i['galeri_author'];
-              $galeri_gambar=$i['galeri_gambar'];
-              $galeri_album_id=$i['galeri_album_id'];
-              $galeri_album_nama=$i['album_nama'];
+              $id = $i['id'];
+              $champion_id=$i['champion_id'];
+              $champion_nama=$i['champion_nama'];
+              $champion_ukuran=$i['champion_ukuran'];
+              $champion_owner=$i['champion_owner'];
+              $champion_handling=$i['champion_handling'];
+              $champion_gambar=$i['champion_gambar'];
+              $kategori_id=$i['champion_kategori'];
+              $kategori_nama=$i['album_nama'];
             ?>
   
-        <div class="modal fade" id="ModalEdit<?php echo $galeri_id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="ModalEdit<?php echo $kategori_id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button>
-                        <h4 class="modal-title" id="myModalLabel">Edit Photo</h4>
+                        <h4 class="modal-title" id="myModalLabel">Edit Champion</h4>
                     </div>
-                    <form class="form-horizontal" action="<?php echo base_url().'admin/galeri/update_galeri'?>" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal" action="<?php echo base_url().'admin/champion/update_champion'?>" method="post" enctype="multipart/form-data">
                     <div class="modal-body">       
-                                <input type="hidden" name="kode" value="<?php echo $galeri_id;?>"/> 
-                                <input type="hidden" value="<?php echo $galeri_gambar;?>" name="gambar">
-                                  <div class="form-group">
-                                        <label for="inputUserName" class="col-sm-4 control-label">Judul</label>
+                                <input type="hidden" name="kode" value="<?php echo $id;?>"/> 
+                                <input type="hidden" value="<?php echo $champion_gambar;?>" name="gambar">
+                                <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Id</label>
                                         <div class="col-sm-7">
-                                            <input type="text" name="xjudul" class="form-control" value="<?php echo $galeri_judul;?>" id="inputUserName" placeholder="Judul" required>
+                                            <input type="text" name="xid" class="form-control" id="inputUserName" placeholder="ID" value="<?php echo $champion_id;?>" required>
+                                        </div>
+                                    </div>   
+                                  <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Nama</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" name="xnama" class="form-control" value="<?php echo $champion_nama;?>" id="inputUserName" placeholder="Nama" required>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
-                                        <label for="inputUserName" class="col-sm-4 control-label">Album</label>
+                                        <label for="inputUserName" class="col-sm-4 control-label">Ukuran</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" name="xukuran" class="form-control" id="inputUserName" placeholder="ukuran" value="<?php echo $champion_ukuran;?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Owner</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" name="xowner" class="form-control" id="inputUserName" placeholder="Owner" value="<?php echo $champion_owner;?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Handling</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" name="xhandling" class="form-control" id="inputUserName" placeholder="Handling" value="<?php echo $champion_handling;?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Kategori</label>
                                         <div class="col-sm-7">
                                             
-                                          <select class="form-control" name="xalbum" style="width: 100%;" required>
+                                          <select class="form-control" name="xkategori" style="width: 100%;" required>
                                                     <option value="">-Pilih-</option>
                                               <?php
                                               foreach ($alb->result_array() as $a) {
                                                            $alb_id=$a['album_id'];
                                                            $alb_nama=$a['album_nama'];
-                                                           if($galeri_album_id==$alb_id)
+                                                           if($kategori_id==$alb_id)
                                                               echo "<option value='$alb_id' selected>$alb_nama</option>";
                                                            else
                                                               echo "<option value='$alb_id'>$alb_nama</option>";
@@ -510,28 +563,30 @@
 	<!--Modal Edit Album-->
 
 	<?php foreach ($data->result_array() as $i) :
-              $galeri_id=$i['galeri_id'];
-              $galeri_judul=$i['galeri_judul'];
-              $galeri_tanggal=$i['tanggal'];
-              $galeri_author=$i['galeri_author'];
-              $galeri_gambar=$i['galeri_gambar'];
-              $galeri_album_id=$i['galeri_album_id'];
-              $galeri_album_nama=$i['album_nama'];
+              $id = $i['id'];
+              $champion_id=$i['champion_id'];
+              $champion_nama=$i['champion_nama'];
+              $champion_ukuran=$i['champion_ukuran'];
+              $champion_owner=$i['champion_owner'];
+              $champion_handling=$i['champion_handling'];
+              $champion_gambar=$i['champion_gambar'];
+              $kategori_id=$i['champion_kategori'];
+              $kategori_nama=$i['album_nama'];
             ?>
 	<!--Modal Hapus Pengguna-->
-        <div class="modal fade" id="ModalHapus<?php echo $galeri_id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="ModalHapus<?php echo $kategori_id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button>
                         <h4 class="modal-title" id="myModalLabel">Hapus Photo</h4>
                     </div>
-                    <form class="form-horizontal" action="<?php echo base_url().'admin/galeri/hapus_galeri'?>" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal" action="<?php echo base_url().'admin/champion/hapus_champion'?>" method="post" enctype="multipart/form-data">
                     <div class="modal-body">       
-							       <input type="hidden" name="kode" value="<?php echo $galeri_id;?>"/> 
-                     <input type="hidden" value="<?php echo $galeri_gambar;?>" name="gambar">
-                     <input type="hidden" value="<?php echo $galeri_album_id;?>" name="album">
-                            <p>Apakah Anda yakin mau menghapus Posting <b><?php echo $galeri_judul;?></b> ?</p>
+							       <input type="hidden" name="kode" value="<?php echo $id;?>"/> 
+                     <input type="hidden" value="<?php echo $champion_gambar;?>" name="gambar">
+                     <input type="hidden" value="<?php echo $kategori_id;?>" name="album">
+                            <p>Apakah Anda yakin mau menghapus Posting <b><?php echo $champion_nama;?></b> ?</p>
                                
                     </div>
                     <div class="modal-footer">
@@ -594,7 +649,7 @@
         <script type="text/javascript">
                 $.toast({
                     heading: 'Success',
-                    text: "Photo Berhasil disimpan ke database.",
+                    text: "Champion Berhasil disimpan ke database.",
                     showHideTransition: 'slide',
                     icon: 'success',
                     hideAfter: false,
@@ -606,7 +661,7 @@
         <script type="text/javascript">
                 $.toast({
                     heading: 'Info',
-                    text: "Photo berhasil di update",
+                    text: "Champion berhasil di update",
                     showHideTransition: 'slide',
                     icon: 'info',
                     hideAfter: false,
@@ -618,7 +673,7 @@
         <script type="text/javascript">
                 $.toast({
                     heading: 'Success',
-                    text: "Photo Berhasil dihapus.",
+                    text: "Champion Berhasil dihapus.",
                     showHideTransition: 'slide',
                     icon: 'success',
                     hideAfter: false,
