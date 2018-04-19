@@ -81,6 +81,14 @@
 									</li>
 								</ul>
 							</li>
+
+							<li class="dropdown magz-dropdown">
+								<a href="#">Gallery <i class="ion-ios-arrow-right"></i></a>
+								<ul class="dropdown-menu">
+									<li><a href="<?php echo base_url()?>Gallery">Artikel Koi</a></li>
+									<li><a href="<?php echo base_url()?>Gallery/photo">Photo</a></li>
+								</ul>
+							</li>
 						</ul>
 					</div>
 				</div>

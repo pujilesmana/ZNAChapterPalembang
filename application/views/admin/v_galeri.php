@@ -8,7 +8,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>M-Sekolah | List Berita</title>
+  <title>M-Sekolah | Gallery</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="shorcut icon" type="text/css" href="<?php echo base_url().'assets/images/favicon.png'?>">
@@ -25,14 +25,14 @@
   <link rel="stylesheet" href="<?php echo base_url().'assets/admin/dist/css/skins/_all-skins.min.css'?>">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url().'assets/admin/plugins/toast/jquery.toast.min.css'?>"/>
   
-	<?php 
+  <?php 
             function limit_words($string, $word_limit){
                 $words = explode(" ",$string);
                 return implode(" ",array_splice($words,0,$word_limit));
             }
                 
     ?>
-	
+  
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -49,7 +49,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">Menu Utama</li>
-        <li class="treeview active">
+        <li class="treeview">
           <a href="#">
             <i class="fa fa-newspaper-o"></i>
             <span>Berita</span>
@@ -62,7 +62,7 @@
             <li><a href="<?php echo base_url().'admin/tulisan/add_tulisan'?>"><i class="fa fa-thumb-tack"></i> Post Berita</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview active">
           <a href="#">
             <i class="fa fa-camera"></i>
             <span>Gallery</span>
@@ -103,13 +103,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        List Berita
+        Gallery Photos 
         <small></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Berita</a></li>
-        <li class="active">List Berita</li>
+        <li class="active">Photos</li>
       </ol>
     </section>
 
@@ -121,19 +120,18 @@
            
           <div class="box">
             <div class="box-header">
-              <a class="btn btn-success btn-flat" href="<?php echo base_url().'admin/tulisan/add_tulisan'?>"><span class="fa fa-plus"></span> Post Tulisan</a>
+              <a class="btn btn-success btn-flat" data-toggle="modal" data-target="#myModal"><span class="fa fa-plus"></span> Add Photo</a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-striped" style="font-size:13px;">
                 <thead>
                 <tr>
-      					<th>Gambar</th>
-      					<th>Judul</th>
-      					<th>Tanggal</th>
-      					<th>Author</th>
-      					<th>Baca</th>
-                    <th>Kategori</th>  
+          					<th>Gambar</th>
+          					<th>Judul</th>
+          					<th>Tanggal</th>
+          					<th>Album</th>
+          					<th>Author</th>
                     <th style="text-align:right;">Aksi</th>
                 </tr>
                 </thead>
@@ -142,28 +140,24 @@
           					$no=0;
           					foreach ($data->result_array() as $i) :
           					   $no++;
-          					   $tulisan_id=$i['tulisan_id'];
-          					   $tulisan_judul=$i['tulisan_judul'];
-          					   $tulisan_isi=$i['tulisan_isi'];
-          					   $tulisan_tanggal=$i['tanggal'];
-          					   $tulisan_author=$i['tulisan_author'];
-          					   $tulisan_gambar=$i['tulisan_gambar'];
-          					   $tulisan_views=$i['tulisan_views'];
-                       $kategori_id=$i['tulisan_kategori_id'];
-                       $kategori_nama=$i['tulisan_kategori_nama'];
+          					   $galeri_id=$i['galeri_id'];
+          					   $galeri_judul=$i['galeri_judul'];
+          					   $galeri_tanggal=$i['tanggal'];
+          					   $galeri_author=$i['galeri_author'];
+          					   $galeri_gambar=$i['galeri_gambar'];
+          					   $galeri_album_id=$i['galeri_album_id'];
+                       $galeri_album_nama=$i['album_nama'];
                        
                     ?>
                 <tr>
-                  <td><img src="<?php echo base_url().'assets/images/'.$tulisan_gambar;?>" style="width:90px;"></td>
-                  <td><?php echo $tulisan_judul;?></td>
-                  
-        				  <td><?php echo $tulisan_tanggal;?></td>
-        				  <td><?php echo $tulisan_author;?></td>
-        				  <td><?php echo $tulisan_views;?></td>
-        				  <td><?php echo $kategori_nama;?></td>
+                  <td><img src="<?php echo base_url().'assets/images/'.$galeri_gambar;?>" style="width:80px;"></td>
+                  <td><?php echo $galeri_judul;?></td>
+        				  <td><?php echo $galeri_tanggal;?></td>
+        				  <td><?php echo $galeri_album_nama;?></td>
+                  <td><?php echo $galeri_author;?></td>
                   <td style="text-align:right;">
-                        <a class="btn" href="<?php echo base_url().'admin/tulisan/get_edit/'.$tulisan_id;?>"><span class="fa fa-pencil"></span></a>
-                        <a class="btn" data-toggle="modal" data-target="#ModalHapus<?php echo $tulisan_id;?>"><span class="fa fa-trash"></span></a>
+                        <a class="btn" data-toggle="modal" data-target="#ModalEdit<?php echo $galeri_id;?>"><span class="fa fa-pencil"></span></a>
+                        <a class="btn" data-toggle="modal" data-target="#ModalHapus<?php echo $galeri_id;?>"><span class="fa fa-trash"></span></a>
                   </td>
                 </tr>
 				<?php endforeach;?>
@@ -185,7 +179,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0
     </div>
-    <strong>Copyright &copy; 2017 <a href="http://mfikri.com">M Fikri Setiadi</a>.</strong> All rights reserved.
+     <strong>Copyright &copy; 2018 <a href="http://digitalcreative.web.id">Digital Creative</a>.</strong> All rights reserved.
   </footer>
 
   <!-- Control Sidebar -->
@@ -384,26 +378,152 @@
 </div>
 <!-- ./wrapper -->
 
-
-	
-	<?php foreach ($data->result_array() as $i) :
-              $tulisan_id=$i['tulisan_id'];
-              $tulisan_judul=$i['tulisan_judul'];
-              $tulisan_gambar=$i['tulisan_gambar'];
-            ?>
-	<!--Modal Hapus Pengguna-->
-        <div class="modal fade" id="ModalHapus<?php echo $tulisan_id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!--Modal Add Pengguna-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button>
-                        <h4 class="modal-title" id="myModalLabel">Hapus Berita</h4>
+                        <h4 class="modal-title" id="myModalLabel">Add Photo</h4>
                     </div>
-                    <form class="form-horizontal" action="<?php echo base_url().'admin/tulisan/hapus_tulisan'?>" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal" action="<?php echo base_url().'admin/galeri/simpan_galeri'?>" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                                
+                                    <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Judul</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" name="xjudul" class="form-control" id="inputUserName" placeholder="Judul" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Album</label>
+                                        <div class="col-sm-7">
+                                            
+                                          <select class="form-control" name="xalbum" style="width: 100%;" required>
+                                                    <option value="">-Pilih-</option>
+                                              <?php
+                                              $no=0;
+                                              foreach ($alb->result_array() as $a) :
+                                                 $no++;
+                                                           $alb_id=$a['album_id'];
+                                                           $alb_nama=$a['album_nama'];
+                                                           
+                                                        ?>
+                                                    <option value="<?php echo $alb_id;?>"><?php echo $alb_nama;?></option>
+                                              <?php endforeach;?>
+                                          </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Photo</label>
+                                        <div class="col-sm-7">
+                                            <input type="file" name="filefoto" required/>
+                                        </div>
+                                    </div>
+                               
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary btn-flat" id="simpan">Simpan</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+  <!--Modal Edit Album-->
+  <?php foreach ($data->result_array() as $i) :
+              $galeri_id=$i['galeri_id'];
+              $galeri_judul=$i['galeri_judul'];
+              $galeri_tanggal=$i['tanggal'];
+              $galeri_author=$i['galeri_author'];
+              $galeri_gambar=$i['galeri_gambar'];
+              $galeri_album_id=$i['galeri_album_id'];
+              $galeri_album_nama=$i['album_nama'];
+            ?>
+  
+        <div class="modal fade" id="ModalEdit<?php echo $galeri_id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit Photo</h4>
+                    </div>
+                    <form class="form-horizontal" action="<?php echo base_url().'admin/galeri/update_galeri'?>" method="post" enctype="multipart/form-data">
                     <div class="modal-body">       
-							       <input type="hidden" name="kode" value="<?php echo $tulisan_id;?>"/> 
-                     <input type="hidden" value="<?php echo $tulisan_gambar;?>" name="gambar">
-                            <p>Apakah Anda yakin mau menghapus Posting <b><?php echo $tulisan_judul;?></b> ?</p>
+                                <input type="hidden" name="kode" value="<?php echo $galeri_id;?>"/> 
+                                <input type="hidden" value="<?php echo $galeri_gambar;?>" name="gambar">
+                                  <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Judul</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" name="xjudul" class="form-control" value="<?php echo $galeri_judul;?>" id="inputUserName" placeholder="Judul" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Album</label>
+                                        <div class="col-sm-7">
+                                            
+                                          <select class="form-control" name="xalbum" style="width: 100%;" required>
+                                                    <option value="">-Pilih-</option>
+                                              <?php
+                                              foreach ($alb->result_array() as $a) {
+                                                           $alb_id=$a['album_id'];
+                                                           $alb_nama=$a['album_nama'];
+                                                           if($galeri_album_id==$alb_id)
+                                                              echo "<option value='$alb_id' selected>$alb_nama</option>";
+                                                           else
+                                                              echo "<option value='$alb_id'>$alb_nama</option>";
+                                                        }?>
+                                          </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Photo</label>
+                                        <div class="col-sm-7">
+                                            <input type="file" name="filefoto"/>
+                                        </div>
+                                    </div>
+                               
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary btn-flat" id="simpan">Simpan</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+  <?php endforeach;?>
+	<!--Modal Edit Album-->
+
+	<?php foreach ($data->result_array() as $i) :
+              $galeri_id=$i['galeri_id'];
+              $galeri_judul=$i['galeri_judul'];
+              $galeri_tanggal=$i['tanggal'];
+              $galeri_author=$i['galeri_author'];
+              $galeri_gambar=$i['galeri_gambar'];
+              $galeri_album_id=$i['galeri_album_id'];
+              $galeri_album_nama=$i['album_nama'];
+            ?>
+	<!--Modal Hapus Pengguna-->
+        <div class="modal fade" id="ModalHapus<?php echo $galeri_id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button>
+                        <h4 class="modal-title" id="myModalLabel">Hapus Photo</h4>
+                    </div>
+                    <form class="form-horizontal" action="<?php echo base_url().'admin/galeri/hapus_galeri'?>" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">       
+							       <input type="hidden" name="kode" value="<?php echo $galeri_id;?>"/> 
+                     <input type="hidden" value="<?php echo $galeri_gambar;?>" name="gambar">
+                     <input type="hidden" value="<?php echo $galeri_album_id;?>" name="album">
+                            <p>Apakah Anda yakin mau menghapus Posting <b><?php echo $galeri_judul;?></b> ?</p>
                                
                     </div>
                     <div class="modal-footer">
@@ -434,7 +554,7 @@
 <script src="<?php echo base_url().'assets/admin/dist/js/app.min.js'?>"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url().'assets/admin/dist/js/demo.js'?>"></script>
-<script type="text/javascript" src="<?php echo base_url().'assets/admin/plugins/toast/jquery.toast.min.js'?>"></script>
+<script type="text/javascript" src="<?php echo base_url().'assets/plugins/toast/jquery.toast.min.js'?>"></script>
 <!-- page script -->
 <script>
   $(function () {
@@ -466,7 +586,7 @@
         <script type="text/javascript">
                 $.toast({
                     heading: 'Success',
-                    text: "Berita Berhasil disimpan ke database.",
+                    text: "Photo Berhasil disimpan ke database.",
                     showHideTransition: 'slide',
                     icon: 'success',
                     hideAfter: false,
@@ -478,7 +598,7 @@
         <script type="text/javascript">
                 $.toast({
                     heading: 'Info',
-                    text: "Berita berhasil di update",
+                    text: "Photo berhasil di update",
                     showHideTransition: 'slide',
                     icon: 'info',
                     hideAfter: false,
@@ -490,7 +610,7 @@
         <script type="text/javascript">
                 $.toast({
                     heading: 'Success',
-                    text: "Berita Berhasil dihapus.",
+                    text: "Photo Berhasil dihapus.",
                     showHideTransition: 'slide',
                     icon: 'success',
                     hideAfter: false,

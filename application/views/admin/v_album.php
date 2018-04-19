@@ -1,115 +1,16 @@
-<!--Counter Inbox-->
-<?php 
-    $query=$this->db->query("SELECT * FROM tbl_inbox WHERE inbox_status='1'");
-    $jum_pesan=$query->num_rows();
-?>
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>M-Sekolah | List Berita</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="shorcut icon" type="text/css" href="<?php echo base_url().'assets/images/favicon.png'?>">
-  <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="<?php echo base_url().'assets/admin/bootstrap/css/bootstrap.min.css'?>">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url().'assets/admin/font-awesome/css/font-awesome.min.css'?>">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="<?php echo base_url().'assets/admin/plugins/datatables/dataTables.bootstrap.css'?>">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url().'assets/admin/dist/css/AdminLTE.min.css'?>">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="<?php echo base_url().'assets/admin/dist/css/skins/_all-skins.min.css'?>">
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url().'assets/admin/plugins/toast/jquery.toast.min.css'?>"/>
-  
-	<?php 
-            function limit_words($string, $word_limit){
-                $words = explode(" ",$string);
-                return implode(" ",array_splice($words,0,$word_limit));
-            }
-                
-    ?>
-	
-</head>
-<body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
 
-   <?php 
-    $this->load->view('admin/v_header');
-  ?>
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu">
-        <li class="header">Menu Utama</li>
-        <li class="treeview active">
-          <a href="#">
-            <i class="fa fa-newspaper-o"></i>
-            <span>Berita</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active"><a href="<?php echo base_url().'admin/tulisan'?>"><i class="fa fa-list"></i> List Berita</a></li>
-            <li><a href="<?php echo base_url().'admin/tulisan/add_tulisan'?>"><i class="fa fa-thumb-tack"></i> Post Berita</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-camera"></i>
-            <span>Gallery</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <!-- <li><a href="<?php echo base_url().'admin/album'?>"><i class="fa fa-clone"></i> Album</a></li> -->
-            <li><a href="<?php echo base_url().'admin/galeri'?>"><i class="fa fa-picture-o"></i> Photos</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="<?php echo base_url().'admin/inbox'?>">
-            <i class="fa fa-envelope"></i> <span>Inbox</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-green"><?php echo $jum_pesan;?></small>
-            </span>
-          </a>
-        </li>
-         <li>
-          <a href="<?php echo base_url().'administrator/logout'?>">
-            <i class="fa fa-sign-out"></i> <span>Sign Out</span>
-            <span class="pull-right-container">
-              <small class="label pull-right"></small>
-            </span>
-          </a>
-        </li>
-        
-       
-      </ul>
-    </section>
-    <!-- /.sidebar -->
-  </aside>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        List Berita
+        Data Album
         <small></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Berita</a></li>
-        <li class="active">List Berita</li>
+        <li class="active">Album</li>
       </ol>
     </section>
 
@@ -121,19 +22,18 @@
            
           <div class="box">
             <div class="box-header">
-              <a class="btn btn-success btn-flat" href="<?php echo base_url().'admin/tulisan/add_tulisan'?>"><span class="fa fa-plus"></span> Post Tulisan</a>
+              <a class="btn btn-success btn-flat" data-toggle="modal" data-target="#myModal"><span class="fa fa-plus"></span> Add Album</a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-striped" style="font-size:13px;">
                 <thead>
                 <tr>
-      					<th>Gambar</th>
-      					<th>Judul</th>
-      					<th>Tanggal</th>
-      					<th>Author</th>
-      					<th>Baca</th>
-                    <th>Kategori</th>  
+          					<th>Gambar</th>
+          					<th>Album</th>
+          					<th>Tanggal</th>
+          					<th>Author</th>
+          					<th>Jumlah</th>
                     <th style="text-align:right;">Aksi</th>
                 </tr>
                 </thead>
@@ -142,28 +42,23 @@
           					$no=0;
           					foreach ($data->result_array() as $i) :
           					   $no++;
-          					   $tulisan_id=$i['tulisan_id'];
-          					   $tulisan_judul=$i['tulisan_judul'];
-          					   $tulisan_isi=$i['tulisan_isi'];
-          					   $tulisan_tanggal=$i['tanggal'];
-          					   $tulisan_author=$i['tulisan_author'];
-          					   $tulisan_gambar=$i['tulisan_gambar'];
-          					   $tulisan_views=$i['tulisan_views'];
-                       $kategori_id=$i['tulisan_kategori_id'];
-                       $kategori_nama=$i['tulisan_kategori_nama'];
+          					   $album_id=$i['album_id'];
+          					   $album_nama=$i['album_nama'];
+          					   $album_tanggal=$i['tanggal'];
+          					   $album_author=$i['album_author'];
+          					   $album_cover=$i['album_cover'];
+          					   $album_jumlah=$i['album_count'];
                        
                     ?>
                 <tr>
-                  <td><img src="<?php echo base_url().'assets/images/'.$tulisan_gambar;?>" style="width:90px;"></td>
-                  <td><?php echo $tulisan_judul;?></td>
-                  
-        				  <td><?php echo $tulisan_tanggal;?></td>
-        				  <td><?php echo $tulisan_author;?></td>
-        				  <td><?php echo $tulisan_views;?></td>
-        				  <td><?php echo $kategori_nama;?></td>
+                  <td><img src="<?php echo base_url().'assets/images/'.$album_cover;?>" style="width:80px;"></td>
+                  <td><?php echo $album_nama;?></td>
+        				  <td><?php echo $album_tanggal;?></td>
+        				  <td><?php echo $album_author;?></td>
+        				  <td><?php echo $album_jumlah;?></td>
                   <td style="text-align:right;">
-                        <a class="btn" href="<?php echo base_url().'admin/tulisan/get_edit/'.$tulisan_id;?>"><span class="fa fa-pencil"></span></a>
-                        <a class="btn" data-toggle="modal" data-target="#ModalHapus<?php echo $tulisan_id;?>"><span class="fa fa-trash"></span></a>
+                        <a class="btn" data-toggle="modal" data-target="#ModalEdit<?php echo $album_id;?>"><span class="fa fa-pencil"></span></a>
+                        <a class="btn" data-toggle="modal" data-target="#ModalHapus<?php echo $album_id;?>"><span class="fa fa-trash"></span></a>
                   </td>
                 </tr>
 				<?php endforeach;?>
@@ -185,7 +80,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0
     </div>
-    <strong>Copyright &copy; 2017 <a href="http://mfikri.com">M Fikri Setiadi</a>.</strong> All rights reserved.
+     <strong>Copyright &copy; 2018 <a href="http://digitalcreative.web.id">Digital Creative</a>.</strong> All rights reserved.
   </footer>
 
   <!-- Control Sidebar -->
@@ -384,26 +279,110 @@
 </div>
 <!-- ./wrapper -->
 
-
-	
-	<?php foreach ($data->result_array() as $i) :
-              $tulisan_id=$i['tulisan_id'];
-              $tulisan_judul=$i['tulisan_judul'];
-              $tulisan_gambar=$i['tulisan_gambar'];
-            ?>
-	<!--Modal Hapus Pengguna-->
-        <div class="modal fade" id="ModalHapus<?php echo $tulisan_id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!--Modal Add Pengguna-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button>
-                        <h4 class="modal-title" id="myModalLabel">Hapus Berita</h4>
+                        <h4 class="modal-title" id="myModalLabel">Add Album</h4>
                     </div>
-                    <form class="form-horizontal" action="<?php echo base_url().'admin/tulisan/hapus_tulisan'?>" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal" action="<?php echo base_url().'admin/album/simpan_album'?>" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                                
+                                    <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Nama Album</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" name="xnama_album" class="form-control" id="inputUserName" placeholder="Nama Album" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Cover Album</label>
+                                        <div class="col-sm-7">
+                                            <input type="file" name="filefoto" required/>
+                                        </div>
+                                    </div>
+                               
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary btn-flat" id="simpan">Simpan</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+  <!--Modal Edit Album-->
+  <?php foreach ($data->result_array() as $i) :
+              $album_id=$i['album_id'];
+              $album_nama=$i['album_nama'];
+              $album_tanggal=$i['tanggal'];
+              $album_author=$i['album_author'];
+              $album_cover=$i['album_cover'];
+              $album_jumlah=$i['album_count'];
+            ?>
+  
+        <div class="modal fade" id="ModalEdit<?php echo $album_id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit Album</h4>
+                    </div>
+                    <form class="form-horizontal" action="<?php echo base_url().'admin/album/update_album'?>" method="post" enctype="multipart/form-data">
                     <div class="modal-body">       
-							       <input type="hidden" name="kode" value="<?php echo $tulisan_id;?>"/> 
-                     <input type="hidden" value="<?php echo $tulisan_gambar;?>" name="gambar">
-                            <p>Apakah Anda yakin mau menghapus Posting <b><?php echo $tulisan_judul;?></b> ?</p>
+                                <input type="hidden" name="kode" value="<?php echo $album_id;?>"/> 
+                                <input type="hidden" value="<?php echo $album_cover;?>" name="gambar">
+                                  <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Nama Album</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" name="xnama_album" class="form-control" value="<?php echo $album_nama;?>" id="inputUserName" placeholder="Nama Album" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="inputUserName" class="col-sm-4 control-label">Cover Album</label>
+                                        <div class="col-sm-7">
+                                            <input type="file" name="filefoto"/>
+                                        </div>
+                                    </div>
+                               
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary btn-flat" id="simpan">Simpan</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+  <?php endforeach;?>
+	<!--Modal Edit Album-->
+
+	<?php foreach ($data->result_array() as $i) :
+              $album_id=$i['album_id'];
+              $album_nama=$i['album_nama'];
+              $album_tanggal=$i['tanggal'];
+              $album_author=$i['album_author'];
+              $album_cover=$i['album_cover'];
+              $album_jumlah=$i['album_count'];
+            ?>
+	<!--Modal Hapus Pengguna-->
+        <div class="modal fade" id="ModalHapus<?php echo $album_id;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button>
+                        <h4 class="modal-title" id="myModalLabel">Hapus Album</h4>
+                    </div>
+                    <form class="form-horizontal" action="<?php echo base_url().'admin/album/hapus_album'?>" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">       
+							       <input type="hidden" name="kode" value="<?php echo $album_id;?>"/> 
+                     <input type="hidden" value="<?php echo $album_cover;?>" name="gambar">
+                            <p>Apakah Anda yakin mau menghapus Posting <b><?php echo $album_nama;?></b> ?</p>
                                
                     </div>
                     <div class="modal-footer">
@@ -420,21 +399,21 @@
 
 
 <!-- jQuery 2.2.3 -->
-<script src="<?php echo base_url().'assets/admin/plugins/jQuery/jquery-2.2.3.min.js'?>"></script>
+<script src="<?php echo base_url().'assets/plugins/jQuery/jquery-2.2.3.min.js'?>"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="<?php echo base_url().'assets/admin/bootstrap/js/bootstrap.min.js'?>"></script>
+<script src="<?php echo base_url().'assets/bootstrap/js/bootstrap.min.js'?>"></script>
 <!-- DataTables -->
-<script src="<?php echo base_url().'assets/admin/plugins/datatables/jquery.dataTables.min.js'?>"></script>
-<script src="<?php echo base_url().'assets/admin/plugins/datatables/dataTables.bootstrap.min.js'?>"></script>
+<script src="<?php echo base_url().'assets/plugins/datatables/jquery.dataTables.min.js'?>"></script>
+<script src="<?php echo base_url().'assets/plugins/datatables/dataTables.bootstrap.min.js'?>"></script>
 <!-- SlimScroll -->
-<script src="<?php echo base_url().'assets/admin/plugins/slimScroll/jquery.slimscroll.min.js'?>"></script>
+<script src="<?php echo base_url().'assets/plugins/slimScroll/jquery.slimscroll.min.js'?>"></script>
 <!-- FastClick -->
-<script src="<?php echo base_url().'assets/admin/plugins/fastclick/fastclick.js'?>"></script>
+<script src="<?php echo base_url().'assets/plugins/fastclick/fastclick.js'?>"></script>
 <!-- AdminLTE App -->
-<script src="<?php echo base_url().'assets/admin/dist/js/app.min.js'?>"></script>
+<script src="<?php echo base_url().'assets/dist/js/app.min.js'?>"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url().'assets/admin/dist/js/demo.js'?>"></script>
-<script type="text/javascript" src="<?php echo base_url().'assets/admin/plugins/toast/jquery.toast.min.js'?>"></script>
+<script src="<?php echo base_url().'assets/dist/js/demo.js'?>"></script>
+<script type="text/javascript" src="<?php echo base_url().'assets/plugins/toast/jquery.toast.min.js'?>"></script>
 <!-- page script -->
 <script>
   $(function () {
@@ -466,7 +445,7 @@
         <script type="text/javascript">
                 $.toast({
                     heading: 'Success',
-                    text: "Berita Berhasil disimpan ke database.",
+                    text: "Album Berhasil disimpan ke database.",
                     showHideTransition: 'slide',
                     icon: 'success',
                     hideAfter: false,
@@ -478,7 +457,7 @@
         <script type="text/javascript">
                 $.toast({
                     heading: 'Info',
-                    text: "Berita berhasil di update",
+                    text: "Album berhasil di update",
                     showHideTransition: 'slide',
                     icon: 'info',
                     hideAfter: false,
@@ -490,7 +469,7 @@
         <script type="text/javascript">
                 $.toast({
                     heading: 'Success',
-                    text: "Berita Berhasil dihapus.",
+                    text: "Album Berhasil dihapus.",
                     showHideTransition: 'slide',
                     icon: 'success',
                     hideAfter: false,
