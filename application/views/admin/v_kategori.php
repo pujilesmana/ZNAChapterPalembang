@@ -78,6 +78,14 @@
           </ul>
         </li>
         <li>
+          <a href="<?php echo base_url().'admin/champion'?>">
+            <i class="fa fa-sign-out"></i> <span>Champion</span>
+            <span class="pull-right-container">
+              <small class="label pull-right"></small>
+            </span>
+          </a>
+        </li>
+        <li>
           <a href="<?php echo base_url().'admin/inbox'?>">
             <i class="fa fa-envelope"></i> <span>Inbox</span>
             <span class="pull-right-container">

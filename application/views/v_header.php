@@ -22,14 +22,18 @@
 		<link rel="stylesheet" href="<?php echo base_url()?>assets/css/skins/all.css">
 		<!-- <link rel="stylesheet" href="<?php echo base_url()?>assets/css/demo.css"> -->
 	</head>
-
+	<style type="text/css">
+	.background {
+		background: url('<?php echo base_url()?>assets/images/ampera.jpg') repeat center;
+	}
+		  
+	</style>
 	<body class="skin-orange">
 		<header class="primary">
-			<div class="firstbar" style="padding-top: 0px;padding-bottom: 0px">
+			<div class="firstbar background" style="padding-top: 0px;padding-bottom: 0px">
 				<div class="container">
 					<div class="row">
-						<div class="col-md-5 col-sm-12">
-												
+						<div class="col-md-5 col-sm-12">					
 						</div>
 						<div class="col-md-6 col-sm-12">
 							<div class="brand">
@@ -38,8 +42,7 @@
 								</a>
 							</div>						
 						</div>
-						<div class="col-md-3 col-sm-12 text-right">
-							
+						<div class="col-md-3 col-sm-12 text-right">	
 						</div>
 					</div>
 				</div>
@@ -89,6 +92,7 @@
 									<li><a href="<?php echo base_url()?>Gallery/photo">Photo</a></li>
 								</ul>
 							</li>
+							<li><a href="<?php echo base_url()?>Champion">Champion</a></li>
 						</ul>
 					</div>
 				</div>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2018 at 01:31 PM
+-- Generation Time: Apr 19, 2018 at 10:33 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -44,7 +44,30 @@ CREATE TABLE `tbl_album` (
 
 INSERT INTO `tbl_album` (`album_id`, `album_nama`, `album_tanggal`, `album_pengguna_id`, `album_author`, `album_count`, `album_cover`) VALUES
 (4, 'photo', '2017-01-24 01:31:13', 1, 'Administrator', 15, '463cc7af7e2f6907c0aea38df42bb31c.jpg'),
-(10, 'artikel koi', '2018-04-19 07:25:52', 1, 'Administrator', 27, '463cc7af7e2f6907c0aea38df42bb31c.jpg');
+(10, 'artikel koi', '2018-04-19 07:25:52', 1, 'Administrator', 27, '463cc7af7e2f6907c0aea38df42bb31c.jpg'),
+(11, 'Super Mini Champion', '2018-04-19 18:41:45', 1, 'Administrator', 4, '463cc7af7e2f6907c0aea38df42bb31c.jpg'),
+(12, 'Mini Champion', '2018-04-19 18:57:46', 1, 'Administrator', 1, '463cc7af7e2f6907c0aea38df42bb31c.jpg'),
+(13, 'Baby Champion', '2018-04-19 18:57:46', 1, 'Administrator', 0, '463cc7af7e2f6907c0aea38df42bb31c.jpg'),
+(14, 'Junior Champion', '2018-04-19 18:58:58', 1, 'Administrator', 0, '463cc7af7e2f6907c0aea38df42bb31c.jpg'),
+(15, 'Young Champion', '2018-04-19 18:58:58', 1, 'Administrator', 0, '463cc7af7e2f6907c0aea38df42bb31c.jpg'),
+(16, 'Grand_Champion', '2018-04-19 18:59:50', 1, 'Administrator', 0, '463cc7af7e2f6907c0aea38df42bb31c.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_champion`
+--
+
+CREATE TABLE `tbl_champion` (
+  `id` int(11) NOT NULL,
+  `champion_id` int(30) NOT NULL,
+  `champion_nama` varchar(100) NOT NULL,
+  `champion_gambar` varchar(100) NOT NULL,
+  `champion_ukuran` varchar(30) NOT NULL,
+  `champion_owner` varchar(100) NOT NULL,
+  `champion_handling` varchar(100) NOT NULL,
+  `champion_kategori` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -227,6 +250,12 @@ ALTER TABLE `tbl_album`
   ADD KEY `album_pengguna_id` (`album_pengguna_id`);
 
 --
+-- Indexes for table `tbl_champion`
+--
+ALTER TABLE `tbl_champion`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_galeri`
 --
 ALTER TABLE `tbl_galeri`
@@ -268,7 +297,12 @@ ALTER TABLE `tbl_tulisan`
 -- AUTO_INCREMENT for table `tbl_album`
 --
 ALTER TABLE `tbl_album`
-  MODIFY `album_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `album_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT for table `tbl_champion`
+--
+ALTER TABLE `tbl_champion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tbl_galeri`
 --

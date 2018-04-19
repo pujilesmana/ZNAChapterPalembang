@@ -4,7 +4,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="copyright" style="margin-top: -50px;">
-							COPYRIGHT &copy; 2018. ALL RIGHT RESERVED.
+							ZNA CHAPTER PALEMBANG
 						</div>
 					</div>
 				</div>
